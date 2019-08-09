@@ -13,26 +13,44 @@ class CardModel {
     func getCards() -> [Card] {
         var gereratedCardsArray = [Card]()
         
-
+        var generatedNumbersArray = [Int]()
         
-        for _ in 1...8{
+        while generatedNumbersArray.count < 8 {
             
             let randomNum = arc4random_uniform(13) + 1
             
-            let cardOne = Card()
+            if !generatedNumbersArray.contains(Int(randomNum)){
+                
+                let cardOne = Card()
+                
+                cardOne.imageName = "card\(randomNum)"
+                
+                generatedNumbersArray.append(Int(randomNum))
+                
+                gereratedCardsArray.append(cardOne)
+                
+                let cardTwo = Card()
+                
+                cardTwo.imageName = "card\(randomNum)"
+                
+                gereratedCardsArray.append( cardTwo)
+                
+                print(randomNum)
+            }
             
-            cardOne.imageName = "card\(randomNum)"
+            for i in 0...gereratedCardsArray.count - 1 {
+                
+                let randomNumber = Int(arc4random_uniform(UInt32(gereratedCardsArray.count)))
+                
+                let temporaryStorage = gereratedCardsArray[i]
+                
+                gereratedCardsArray[i] = gereratedCardsArray[randomNumber]
+                
+                gereratedCardsArray[randomNumber] = temporaryStorage;
+                
+            }
             
-            gereratedCardsArray.append(cardOne)
             
-            let cardTwo = Card()
-            
-            cardTwo.imageName = "card\(randomNum)"
-            
-            gereratedCardsArray.append( cardTwo)
-            
-            
-            print(randomNum)
         }
         return gereratedCardsArray
     }
